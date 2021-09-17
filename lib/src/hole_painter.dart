@@ -44,6 +44,7 @@ class HolePainter extends CustomPainter {
 
   @override
   bool hitTest(Offset position) {
+    print("hitTest - ${hole?.contains(position)}");
     return !(hole?.contains(position) ?? false);
   }
 
@@ -66,11 +67,18 @@ class HolePainter extends CustomPainter {
     );
     final Path overlayPath = overlayShape.getOuterPath(overlayRect);
 
-    final Path path = Path.combine(
-      PathOperation.difference,
-      fullscreen ? canvasPath : overlayPath,
-      holePath,
-    );
+    Path path = Path()
+      ..addRect(Rect.fromLTWH(0, 0, size.width, size.height))
+      ..addPath(holePath, Offset.zero)
+      ..fillType = PathFillType.evenOdd;
+    if (!fullscreen) {
+      path = Path.combine(
+        PathOperation.difference,
+        overlayPath,
+        holePath,
+      );
+    }
+
     canvas.drawPath(
       path,
       Paint()

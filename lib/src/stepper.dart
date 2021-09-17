@@ -97,15 +97,22 @@ class _OnboardingStepperState extends State<OnboardingStepper>
   void _prepare(OnboardingStep step) {
     final RenderBox? box =
         step.focusNode.context?.findRenderObject() as RenderBox?;
+    print('Onboarding Focus Node - $box');
 
     _holeOffset = box?.localToGlobal(Offset.zero);
+    print('Onboarding Focus Node, Hole offset - $_holeOffset');
+
     _widgetRect = box != null ? _holeOffset! & box.size : null;
+    print('Onboarding Focus Node, Widget Rect - $_widgetRect');
+
     _holeTween = _widgetRect != null
         ? RectTween(
             begin: Rect.zero.shift(_widgetRect!.center),
             end: step.margin.inflateRect(_widgetRect!),
           )
         : null;
+    print('Onboarding Focus Node, Hole Tween - $_holeTween');
+
     _overlayColorTween = ColorTween(
       begin: step.overlayColor.withOpacity(_animation.value),
       end: step.overlayColor,
@@ -244,9 +251,9 @@ class _OnboardingStepperState extends State<OnboardingStepper>
     final TextStyle localBodyTextStyle =
         textTheme.bodyText1!.copyWith(color: step.bodyTextColor);
 
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () {
+    return Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerUp: (_) {
         _proceed();
       },
       child: Stack(
