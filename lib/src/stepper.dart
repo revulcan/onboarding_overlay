@@ -219,9 +219,15 @@ class _OnboardingStepperState extends State<OnboardingStepper>
     if (_widgetRect != null) {
       final Rect holeRect = step.margin.inflateRect(_widgetRect!);
       if (step.fullscreen) {
+        print(
+            '_getVerticalPosition - holeRect.center.dy - ${holeRect.center.dy}');
         if (holeRect.center.dy > size.height / 2) {
+        print(
+            '_getVerticalPosition - top - ${holeRect.top - boxHeight - step.margin.bottom * 2}');
           return holeRect.top - boxHeight - step.margin.bottom * 2;
         } else {
+        print(
+            '_getVerticalPosition - bottom - ${holeRect.bottom + step.margin.bottom * 2}');
           return holeRect.bottom + step.margin.bottom * 2;
         }
       } else {
