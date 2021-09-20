@@ -220,22 +220,30 @@ class _OnboardingStepperState extends State<OnboardingStepper>
       final Rect holeRect = step.margin.inflateRect(_widgetRect!);
       if (step.fullscreen) {
         print(
-            '_getVerticalPosition - holeRect.center.dy - ${holeRect.center.dy}');
+            '_getVerticalPosition fs - holeRect.center.dy - ${holeRect.center.dy}');
         if (holeRect.center.dy > size.height / 2) {
         print(
-            '_getVerticalPosition - top - ${holeRect.top - boxHeight - step.margin.bottom * 2}');
+            '_getVerticalPosition - fs top - ${holeRect.top - boxHeight - step.margin.bottom * 2}');
           return holeRect.top - boxHeight - step.margin.bottom * 2;
         } else {
         print(
-            '_getVerticalPosition - bottom - ${holeRect.bottom + step.margin.bottom * 2}');
+            '_getVerticalPosition - fs bottom - ${holeRect.bottom + step.margin.bottom * 2}');
           return holeRect.bottom + step.margin.bottom * 2;
         }
       } else {
+        print(
+            '_getVerticalPosition nfs - _widgetRect!.center.dy - ${_widgetRect!.center.dy}');
         if (_widgetRect!.center.dy > size.height / 2) {
+        print(
+            '_getVerticalPosition - nfs top - ${holeRect.top -
+              boxHeight -
+              (step.hasArrow ? 16.0 + step.margin.bottom : step.margin.bottom)}');
           return holeRect.top -
               boxHeight -
               (step.hasArrow ? 16.0 + step.margin.bottom : step.margin.bottom);
         } else {
+        print(
+            '_getVerticalPosition - nfs bottom - ${_widgetRect!.bottom + step.margin.bottom}');
           return _widgetRect!.bottom + step.margin.bottom;
         }
       }
