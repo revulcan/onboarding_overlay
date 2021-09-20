@@ -252,7 +252,7 @@ class _OnboardingStepperState extends State<OnboardingStepper>
         textTheme.bodyText1!.copyWith(color: step.bodyTextColor);
 
     return Listener(
-      behavior: HitTestBehavior.translucent,
+      behavior: HitTestBehavior.opaque,
       onPointerUp: (_) {
         _proceed();
       },
