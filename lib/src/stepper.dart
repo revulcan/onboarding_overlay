@@ -246,7 +246,7 @@ class _OnboardingStepperState extends State<OnboardingStepper>
           pos = _widgetRect!.bottom + step.margin.bottom;
         }
       }
-      if (pos < 0) {
+      if (pos < 100) {
         return 100;
       }
       return pos;
