@@ -218,35 +218,38 @@ class _OnboardingStepperState extends State<OnboardingStepper>
     final double boxHeight = size.width * 0.45;
     if (_widgetRect != null) {
       final Rect holeRect = step.margin.inflateRect(_widgetRect!);
+      double pos = 0;
       if (step.fullscreen) {
         print(
             '_getVerticalPosition fs - holeRect.center.dy - ${holeRect.center.dy}');
         if (holeRect.center.dy > size.height / 2) {
-        print(
-            '_getVerticalPosition - fs top - ${holeRect.top - boxHeight - step.margin.bottom * 2}');
-          return holeRect.top - boxHeight - step.margin.bottom * 2;
+          print(
+              '_getVerticalPosition - fs top - ${holeRect.top - boxHeight - step.margin.bottom * 2}');
+          pos = holeRect.top - boxHeight - step.margin.bottom * 2;
         } else {
-        print(
-            '_getVerticalPosition - fs bottom - ${holeRect.bottom + step.margin.bottom * 2}');
-          return holeRect.bottom + step.margin.bottom * 2;
+          print(
+              '_getVerticalPosition - fs bottom - ${holeRect.bottom + step.margin.bottom * 2}');
+          pos = holeRect.bottom + step.margin.bottom * 2;
         }
       } else {
         print(
             '_getVerticalPosition nfs - _widgetRect!.center.dy - ${_widgetRect!.center.dy}');
         if (_widgetRect!.center.dy > size.height / 2) {
-        print(
-            '_getVerticalPosition - nfs top - ${holeRect.top -
-              boxHeight -
-              (step.hasArrow ? 16.0 + step.margin.bottom : step.margin.bottom)}');
-          return holeRect.top -
+          print(
+              '_getVerticalPosition - nfs top - ${holeRect.top - boxHeight - (step.hasArrow ? 16.0 + step.margin.bottom : step.margin.bottom)}');
+          pos = holeRect.top -
               boxHeight -
               (step.hasArrow ? 16.0 + step.margin.bottom : step.margin.bottom);
         } else {
-        print(
-            '_getVerticalPosition - nfs bottom - ${_widgetRect!.bottom + step.margin.bottom}');
-          return _widgetRect!.bottom + step.margin.bottom;
+          print(
+              '_getVerticalPosition - nfs bottom - ${_widgetRect!.bottom + step.margin.bottom}');
+          pos = _widgetRect!.bottom + step.margin.bottom;
         }
       }
+      if (pos < 0) {
+        return 100;
+      }
+      return pos;
     } else {
       return size.height / 2 - boxHeight / 2;
     }
